@@ -3,6 +3,7 @@
     <v-card-title class="text-center justify-center py-6">
       <h1 class="font-weight-bold display-1 basil--text">企业信息</h1>
     </v-card-title>
+    <v-divider class="mx-4" color="rgba(0, 128, 128, 0.712)"></v-divider>
     <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
       <v-tab>
         基本信息

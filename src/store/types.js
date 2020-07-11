@@ -12,10 +12,12 @@ export const GET_MYSTUDENTS_TUTOR = "getMyStudentsByTutor";
 export const GET_INDEX_TUTOR = "getTutorIndex";
 export const UPDATE_RANGE_TUTOR = "updateTutorRange";
 
-export const LIST_COURSES_TUTOR = "listCoursesByTutor";
-export const UPDATE_COURSE_TUTOR = "updateCourseByTutor";
-export const ADD_COURSE_TUTOR = "addCourseByTutor";
-export const DELETE_COURSE_TUTOR = "deleteCourseByTutor";
+export const GET_INDEX_ENTERPRISE = "getEnterprseIndex";
+
+export const LIST_POSTS_ENTERPRISE = "listPostsByEnterprise";
+export const UPDATE_POST_ENTERPRISE = "updatePostByEnterprise";
+export const ADD_POST_ENTERPRISE = "addPostByEnterprise";
+export const DELETE_POST_ENTERPRISE = "deletePostByEnterprise";
 
 export const LIST_STUDENTS_TUTOR = "listStudentsByTutor";
 export const UPDATE_STUDENT_TUTOR = "updateStudentByTutor";

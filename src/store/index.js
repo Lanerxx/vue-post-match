@@ -18,6 +18,7 @@ const myState = {
   rankStudents: [],
   myStudents: [],
   courses: [],
+  posts: [],
   tutor: null,
   tutors: [],
   myTutor: null,
@@ -34,8 +35,8 @@ const myMutations = {
   [types.LOGIN](state, data) {
     state.isLogin = data;
   },
-  [types.LIST_COURSES_TUTOR](state, data) {
-    state.courses = data;
+  [types.LIST_POSTS_ENTERPRISE](state, data) {
+    state.posts = data;
   },
   [types.LIST_STUDENTS_TUTOR](state, data) {
     state.students = data;
@@ -105,21 +106,24 @@ const myActions = {
   //   commit(types.GET_TUTOR, resp.data.tutor);
   //   commit(types.GET_MYSTUDENTS_TUTOR, resp.data.students);
   // },
-  // async [types.LIST_COURSES_TUTOR]({ commit }, data) {
-  //   let resp = await axios.get("tutor/courses");
-  //   commit(types.LIST_COURSES_TUTOR, resp.data.courses);
-  // },
-  async [types.UPDATE_COURSE_TUTOR]({ commit }, data) {
-    let resp = await axios.patch("tutor/course", data);
-    commit(types.LIST_COURSES_TUTOR, resp.data.courses);
+  async [types.LIST_POSTS_ENTERPRISE]({ commit }) {
+    let resp = await axios.get("enterprise/index");
+    commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);
   },
-  async [types.ADD_COURSE_TUTOR]({ commit }, data) {
-    let resp = await axios.post("tutor/course", data);
-    commit(types.LIST_COURSES_TUTOR, resp.data.courses);
+  async [types.UPDATE_POST_ENTERPRISE]({ commit }, data) {
+    let resp = await axios.patch(
+      `enterprise/post/information/${data.id}`,
+      data
+    );
+    commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);
   },
-  async [types.DELETE_COURSE_TUTOR]({ commit }, data) {
-    let resp = await axios.delete(`tutor/courses/${data.id}`);
-    commit(types.LIST_COURSES_TUTOR, resp.data.courses);
+  async [types.ADD_POST_ENTERPRISE]({ commit }, data) {
+    let resp = await axios.post("enterprise/post", data);
+    commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);
+  },
+  async [types.DELETE_POST_ENTERPRISE]({ commit }, data) {
+    let resp = await axios.delete(`enterprise/post/${data.id}`);
+    commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);
   },
   // async [types.LIST_STUDENTS_TUTOR]({ commit }, data) {
   //   let resp = await axios.get("tutor/students");
