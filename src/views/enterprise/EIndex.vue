@@ -1,9 +1,8 @@
 <template>
   <v-card min-width="1370px">
     <v-card-title class="text-center justify-center py-6">
-      <h1 class="font-weight-bold display-1.5 basil--text">企业信息</h1>
+      <h1 class="font-weight-bold display-1 basil--text">企业信息</h1>
     </v-card-title>
-
     <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
       <v-tab>
         基本信息

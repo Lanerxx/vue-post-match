@@ -1,3 +1,3 @@
 <template>
-  <p>studentinformation</p>
+  <p>dsd</p>
 </template>
