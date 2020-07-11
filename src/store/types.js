@@ -31,6 +31,6 @@ export const GET_HOMEWORK = "getHomework";
 export const GET_EXCEPTION = "getException";
 export const ADV_LOGIN = "advlogin";
 
-export const CERTI_TUTOR = "certificateTutor";
+export const CERTI_ENTERPRISE = "certificateTutor";
 export const CERTI_STUDENT = "certificateStudent";
 export const CERTI_ADMIN = "certificateAdmin";
