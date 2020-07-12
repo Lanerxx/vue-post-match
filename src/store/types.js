@@ -7,11 +7,10 @@ export const GET_TUTORS_STUDENT = "getTutorsByStudent";
 export const GET_TUTORDETAIL_STUDENT = "getTutorDetailByStudent";
 export const GET_TUTOR_STUDENT = "getTutorByStudent";
 
-export const GET_TUTOR = "getTutor";
-export const GET_MYSTUDENTS_TUTOR = "getMyStudentsByTutor";
-export const GET_INDEX_TUTOR = "getTutorIndex";
 export const UPDATE_RANGE_TUTOR = "updateTutorRange";
 
+export const GET_ENTERPRISE = "getEnterprise";
+export const GET_MYPOSTS_ENTERPRISE = "getMySPostsByEnterprise";
 export const GET_INDEX_ENTERPRISE = "getEnterprseIndex";
 
 export const LIST_POSTS_ENTERPRISE = "listPostsByEnterprise";

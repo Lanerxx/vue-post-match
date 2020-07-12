@@ -3,7 +3,7 @@
     <br />
     <br />
     <br />
-    <v-card>
+    <v-card max-width="450px" class="mx-auto">
       <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
         <v-tab>
           Login
@@ -88,6 +88,7 @@ export default {
     name: null,
     phoneNumbwer: null
   }),
+
   methods: {
     login() {
       this.$store.dispatch(LOGIN, {

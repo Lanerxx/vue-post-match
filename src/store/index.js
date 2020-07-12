@@ -16,7 +16,7 @@ const myState = {
   student: null,
   students: [],
   rankStudents: [],
-  myStudents: [],
+  myPosts: [],
   courses: [],
   posts: [],
   tutor: null,
@@ -44,11 +44,11 @@ const myMutations = {
   [types.LIST_RANKING_STUDENTS_TUTOR](state, data) {
     state.rankStudents = data;
   },
-  [types.GET_TUTOR](state, date) {
-    state.tutor = date;
+  [types.GET_ENTERPRISE](state, date) {
+    state.enterprise = date;
   },
-  [types.GET_MYSTUDENTS_TUTOR](state, data) {
-    state.myStudents = data;
+  [types.GET_MYPOSTS_ENTERPRISE](state, data) {
+    state.myPosts = data;
   },
   [types.CERTI_ADMIN](state, data) {
     state.isAdmin = data;
@@ -101,11 +101,11 @@ const myActions = {
 
   // ------以下为向springboot发出请求
   // 需要取消mock，配置后端跨域
-  // async [types.GET_INDEX_TUTOR]({ commit }, data) {
-  //   let resp = await axios.get("tutor/index");
-  //   commit(types.GET_TUTOR, resp.data.tutor);
-  //   commit(types.GET_MYSTUDENTS_TUTOR, resp.data.students);
-  // },
+  async [types.GET_INDEX_ENTERPRISE]({ commit }) {
+    let resp = await axios.get("enterprise/index");
+    commit(types.GET_ENTERPRISE, resp.data.enterprise);
+    commit(types.GET_MYPOSTS_ENTERPRISE, resp.data.posts);
+  },
   async [types.LIST_POSTS_ENTERPRISE]({ commit }) {
     let resp = await axios.get("enterprise/index");
     commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);

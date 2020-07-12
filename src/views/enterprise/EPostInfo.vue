@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="posts"
+      :items="myPosts"
       sort-by="count"
       sort-desc="true"
       class="elevation-1"
@@ -144,7 +144,7 @@
 </template>
 
 <script>
-import { LIST_POSTS_ENTERPRISE } from "@/store/types.js";
+import { GET_INDEX_ENTERPRISE } from "@/store/types.js";
 import { UPDATE_POST_ENTERPRISE } from "@/store/types.js";
 import { ADD_POST_ENTERPRISE } from "@/store/types.js";
 import { DELETE_POST_ENTERPRISE } from "@/store/types.js";
@@ -200,7 +200,7 @@ export default {
     formatDate() {
       return date => date.replace("T", " ").substring(0, 16);
     },
-    ...mapState(["posts"])
+    ...mapState(["myPosts"])
   },
   watch: {
     dialog(val) {
@@ -209,22 +209,22 @@ export default {
   },
 
   created() {
-    this.$store.dispatch(LIST_POSTS_ENTERPRISE);
+    this.$store.dispatch(GET_INDEX_ENTERPRISE);
   },
 
   methods: {
     reset() {
-      this.$store.dispatch(LIST_POSTS_ENTERPRISE);
+      this.$store.dispatch(GET_INDEX_ENTERPRISE);
     },
     editItem(item) {
-      this.editedIndex = this.posts.indexOf(item);
+      this.editedIndex = this.myPosts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.desserts.indexOf(item);
-      confirm("你确定删除这个岗位吗？") && this.desserts.splice(index, 1);
+      const index = this.myPosts.indexOf(item);
+      confirm("你确定删除这个岗位吗？") && this.myPosts.splice(index, 1);
       this.$store.dispatch(DELETE_POST_ENTERPRISE, {
         id: item.id
       });
@@ -252,7 +252,7 @@ export default {
       // }
       if (this.editedIndex > -1) {
         this.$store.dispatch(UPDATE_POST_ENTERPRISE, {
-          id: this.posts[this.editedIndex].id,
+          id: this.myPosts[this.editedIndex].id,
           post: {
             name: this.editedItem.name,
             detail: this.editedItem.detail,
@@ -276,7 +276,7 @@ export default {
             this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
           endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
         });
-        if (flag) this.posts.push(this.editedItem);
+        if (flag) this.myPosts.push(this.editedItem);
       }
       this.close();
     }

@@ -8,19 +8,29 @@
               <v-subheader>企业名</v-subheader>
             </v-col>
             <v-col cols="3">
-              <v-text-field label="Name" v-model="name"></v-text-field>
+              <v-text-field
+                label="Name"
+                v-model="enterprise.enterprise.name"
+              ></v-text-field>
             </v-col>
             <v-col cols="1">
               <v-subheader>性质</v-subheader>
             </v-col>
             <v-col cols="3">
-              <v-select :items="natureItems" label="Nature"></v-select>
+              <v-select
+                :items="natureItems"
+                label="Nature"
+                v-model="enterprise.enterpriseNature"
+              ></v-select>
             </v-col>
             <v-col cols="1">
               <v-subheader>行业</v-subheader>
             </v-col>
             <v-col cols="3">
-              <v-text-field label="Industry" value="example"></v-text-field>
+              <v-text-field
+                label="Industry"
+                v-model="enterprise.enterprise.industry"
+              ></v-text-field>
             </v-col>
           </v-row>
 
@@ -29,7 +39,10 @@
               <v-subheader>企业详情</v-subheader>
             </v-col>
             <v-col cols="10">
-              <v-text-field label="Detail" value="28.00"></v-text-field>
+              <v-text-field
+                label="Detail"
+                v-model="enterprise.enterprise.detail"
+              ></v-text-field>
             </v-col>
           </v-row>
 
@@ -42,9 +55,7 @@
             <v-col cols="4">
               <v-text-field
                 label="Location"
-                value="12:30:00"
-                type="time"
-                suffix="PST"
+                v-model="enterprise.enterprise.location"
               ></v-text-field>
             </v-col>
             <v-col cols="2">
@@ -53,9 +64,7 @@
             <v-col cols="4">
               <v-text-field
                 label="PhoneNumber"
-                value="8000"
-                type="date"
-                suffix="PST"
+                v-model="enterprise.enterprise.phoneNumber"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -64,7 +73,10 @@
               <v-subheader>最高薪资</v-subheader>
             </v-col>
             <v-col cols="4">
-              <v-text-field label="Highest Salery" value="20000"></v-text-field>
+              <v-text-field
+                label="Highest Salery"
+                v-model="enterprise.enterprise.highestSalery"
+              ></v-text-field>
             </v-col>
             <v-col cols="2">
               <v-subheader>最低薪资</v-subheader>
@@ -72,7 +84,7 @@
             <v-col cols="4">
               <v-text-field
                 label="Lowest Salery"
-                value="12:30:00"
+                v-model="enterprise.enterprise.lowestSalery"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -84,14 +96,18 @@
               <v-select
                 :items="schoolRankItems"
                 label="School Rank"
-                v-model="schoolRank"
+                v-model="enterprise.schoolRankCut"
               ></v-select>
             </v-col>
             <v-col cols="2" class="d-flex">
               <v-subheader>文凭要求</v-subheader>
             </v-col>
             <v-col cols="4">
-              <v-select :items="educationItems" label="Education"></v-select>
+              <v-select
+                :items="educationItems"
+                label="Education"
+                v-model="enterprise.educationCut"
+              ></v-select>
             </v-col>
           </v-row>
           <v-row>
@@ -102,16 +118,26 @@
               <v-select
                 :items="foreignLanguageProficiencyItems"
                 label="Foreign Language Proficiency"
+                v-model="enterprise.foreignLanguageProficiency"
               ></v-select>
             </v-col>
             <v-col cols="2" class="d-flex">
               <v-subheader>性别要求</v-subheader>
             </v-col>
             <v-col cols="4">
-              <v-select :items="genderItems" label="Gender"></v-select>
+              <v-select
+                :items="genderItems"
+                label="Gender"
+                v-model="enterprise.genderCut"
+              ></v-select>
             </v-col>
           </v-row>
-          <div class="mt-12 text-center">Value: {{ model }}</div>
+          <div class="mt-12 text-right">
+            <v-btn class="ma-2" outlined color="basil" large>
+              <v-icon left @click="submit">mdi-pencil</v-icon>
+              SUBMIT
+            </v-btn>
+          </div>
         </v-sheet>
       </v-col>
     </v-row>
@@ -119,13 +145,14 @@
 </template>
 
 <script>
+import { GET_INDEX_ENTERPRISE } from "@/store/types.js";
+import { mapState } from "vuex";
+
 export default {
   data: () => ({
     schoolRank: null,
-    name: "阿里巴巴",
-    model: "I'm a text field",
-    label: "Hey!",
-    hint: "Customize me!",
+    name: null,
+    nature: null,
     placeholder: "",
     schoolRankItems: [
       "985",
@@ -140,6 +167,18 @@ export default {
     natureItems: ["国企", "外企", "民企"],
     foreignLanguageProficiencyItems: ["CET-6", "CET-4", "国外交流经验", "无"],
     genderItems: ["男", "女", "无"]
-  })
+  }),
+  created() {
+    this.$store.dispatch(GET_INDEX_ENTERPRISE);
+  },
+  methods: {
+    submit() {}
+  },
+  computed: {
+    formatDate() {
+      return date => date.replace("T", " ").substring(0, 16);
+    },
+    ...mapState(["enterprise"])
+  }
 };
 </script>
