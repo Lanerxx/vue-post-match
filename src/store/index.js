@@ -8,21 +8,17 @@ Vue.use(Vuex);
 
 const myState = {
   exception: { message: null },
+  user: null,
   isLogin: false,
   notLogin: true,
+  enterprise: null,
   isEnterprise: false,
   isStudent: false,
   isAdmin: false,
   student: null,
   students: [],
-  rankStudents: [],
   myPosts: [],
-  courses: [],
   posts: [],
-  tutor: null,
-  tutors: [],
-  myTutor: null,
-  courseGradeVOSDe: [],
   studentsDe: [],
   qualified: null,
   rankingIndex: null
@@ -35,14 +31,11 @@ const myMutations = {
   [types.LOGIN](state, data) {
     state.isLogin = data;
   },
+  [types.REGISTER](state, data) {
+    state.user = data;
+  },
   [types.LIST_POSTS_ENTERPRISE](state, data) {
     state.posts = data;
-  },
-  [types.LIST_STUDENTS_TUTOR](state, data) {
-    state.students = data;
-  },
-  [types.LIST_RANKING_STUDENTS_TUTOR](state, data) {
-    state.rankStudents = data;
   },
   [types.GET_ENTERPRISE](state, date) {
     state.enterprise = date;
@@ -50,6 +43,12 @@ const myMutations = {
   [types.GET_MYPOSTS_ENTERPRISE](state, data) {
     state.myPosts = data;
   },
+  // [types.GET_INDEX_ENTERPRISE_IM](state) {
+  //   let resp = axios.get("enterprise/index");
+  //   state.enterprise = resp.data.enterprise;
+  //   state.myPosts = resp.data.posts;
+  // },
+
   [types.CERTI_ADMIN](state, data) {
     state.isAdmin = data;
   },
@@ -61,17 +60,6 @@ const myMutations = {
   },
   [types.GET_STUDENT](state, data) {
     state.student = data;
-  },
-  [types.GET_TUTORS_STUDENT](state, data) {
-    state.tutors = data;
-  },
-  [types.GET_TUTORDETAIL_STUDENT](state, data) {
-    state.courseGradeVOSDe = data.courseGradeVOS;
-    state.studentsDe = data.students;
-    state.qualified = data.qualified;
-    state.myTutor = data.tutor;
-    state.student = data.student;
-    state.rankingIndex = data.rankingIndex;
   }
 };
 
@@ -98,6 +86,14 @@ const myActions = {
       commit(types.LOGIN, true);
     }
   },
+  async [types.REGISTER_ENTERPRISE]({ commit }, data) {
+    let resp = await axios.post("register/enterprise", data);
+    commit(types.REGISTER, resp.data);
+  },
+  async [types.REGISTER_STUDENT]({ commit }, data) {
+    let resp = await axios.post("register/student", data);
+    commit(types.REGISTER, resp.data);
+  },
 
   // ------以下为向springboot发出请求
   // 需要取消mock，配置后端跨域
@@ -105,6 +101,10 @@ const myActions = {
     let resp = await axios.get("enterprise/index");
     commit(types.GET_ENTERPRISE, resp.data.enterprise);
     commit(types.GET_MYPOSTS_ENTERPRISE, resp.data.posts);
+  },
+  async [types.UPDATE_INFORMATION_ENTERPRISE]({ commit }, data) {
+    let resp = await axios.patch("enterprise/information", data);
+    commit(types.GET_ENTERPRISE, resp.data.enterprise);
   },
   async [types.LIST_POSTS_ENTERPRISE]({ commit }) {
     let resp = await axios.get("enterprise/index");
@@ -124,51 +124,6 @@ const myActions = {
   async [types.DELETE_POST_ENTERPRISE]({ commit }, data) {
     let resp = await axios.delete(`enterprise/post/${data.id}`);
     commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);
-  },
-  // async [types.LIST_STUDENTS_TUTOR]({ commit }, data) {
-  //   let resp = await axios.get("tutor/students");
-  //   commit(types.LIST_STUDENTS_TUTOR, resp.data.students);
-  // },
-  async [types.UPDATE_STUDENT_TUTOR]({ commit }, data) {
-    let resp = await axios.patch("tutor/student", data);
-    commit(types.LIST_STUDENTS_TUTOR, resp.data.students);
-  },
-  async [types.ADD_STUDENT_TUTOR]({ commit }, data) {
-    let resp = await axios.post("tutor/student", data);
-    commit(types.LIST_STUDENTS_TUTOR, resp.data.students);
-  },
-  async [types.DELETE_STUDENT_TUTOR]({ commit }, data) {
-    let resp = await axios.delete(`tutor/student/${data.id}`);
-    commit(types.LIST_STUDENTS_TUTOR, resp.data.students);
-  },
-  // async [types.LIST_RANKING_STUDENTS_TUTOR]({ commit }, data) {
-  //   let resp = await axios.get("tutor/ranking");
-  //   commit(types.LIST_RANKING_STUDENTS_TUTOR, resp.data.students);
-  // },
-  // async [types.ADD_ELECTIVES_TUTOR]({ commit }, data) {
-  //   let resp = await axios.post("tutor/electives", data);
-  // },
-  async [types.UPDATE_RANGE_TUTOR]({ commit }, data) {
-    let resp = await axios.patch(
-      `tutor/information/ranges/${data.ranges}/reservedRange/${data.reservedRange}`
-    );
-    commit(types.GET_TUTOR, resp.data.tutor);
-  },
-  // async [types.SELECT_ADVANCE_STUDENTS_TUTOR]({ commit }, data) {
-  //   let resp = await axios.post("tutor/advance", data);
-  // },
-  async [types.GET_INDEX_STUDENT]({ commit }, data) {
-    let resp = await axios.get("student/index", data);
-    commit(types.GET_STUDENT, resp.data.student);
-    commit(types.GET_TUTORS_STUDENT, resp.data.tutors);
-  },
-  async [types.GET_TUTORDETAIL_STUDENT]({ commit }, data) {
-    let resp = await axios.get(`student/information/${data.tid}`);
-    commit(types.GET_TUTORDETAIL_STUDENT, resp.data);
-  },
-  async [types.GET_TUTOR_STUDENT]({ commit }, data) {
-    let resp = await axios.get(`student/tutor/${data.tid}`);
-    commit(types.GET_STUDENT, resp.data.student);
   }
 };
 

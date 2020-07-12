@@ -3,8 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="myPosts"
-      sort-by="count"
-      sort-desc="true"
+      sort-by="endTime"
       class="elevation-1"
       :search="search"
     >
@@ -165,7 +164,6 @@ export default {
       { text: "结束时间", value: "endTime" },
       { text: "操作", value: "actions", sortable: false }
     ],
-    desserts: [],
     editedIndex: -1,
     editedItem: {
       name: "",

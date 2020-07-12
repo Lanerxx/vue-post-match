@@ -18,6 +18,7 @@
             </v-col>
             <v-col cols="3">
               <v-select
+                v-if="enterprise"
                 :items="natureItems"
                 label="Nature"
                 v-model="enterprise.enterpriseNature"
@@ -28,6 +29,7 @@
             </v-col>
             <v-col cols="3">
               <v-text-field
+                v-if="enterprise"
                 label="Industry"
                 v-model="enterprise.enterprise.industry"
               ></v-text-field>
@@ -40,6 +42,7 @@
             </v-col>
             <v-col cols="10">
               <v-text-field
+                v-if="enterprise"
                 label="Detail"
                 v-model="enterprise.enterprise.detail"
               ></v-text-field>
@@ -54,6 +57,7 @@
             </v-col>
             <v-col cols="4">
               <v-text-field
+                v-if="enterprise"
                 label="Location"
                 v-model="enterprise.enterprise.location"
               ></v-text-field>
@@ -63,6 +67,7 @@
             </v-col>
             <v-col cols="4">
               <v-text-field
+                v-if="enterprise"
                 label="PhoneNumber"
                 v-model="enterprise.enterprise.phoneNumber"
               ></v-text-field>
@@ -74,6 +79,7 @@
             </v-col>
             <v-col cols="4">
               <v-text-field
+                v-if="enterprise"
                 label="Highest Salery"
                 v-model="enterprise.enterprise.highestSalery"
               ></v-text-field>
@@ -83,6 +89,7 @@
             </v-col>
             <v-col cols="4">
               <v-text-field
+                v-if="enterprise"
                 label="Lowest Salery"
                 v-model="enterprise.enterprise.lowestSalery"
               ></v-text-field>
@@ -95,6 +102,7 @@
             <v-col cols="4">
               <v-select
                 :items="schoolRankItems"
+                v-if="enterprise"
                 label="School Rank"
                 v-model="enterprise.schoolRankCut"
               ></v-select>
@@ -104,6 +112,7 @@
             </v-col>
             <v-col cols="4">
               <v-select
+                v-if="enterprise"
                 :items="educationItems"
                 label="Education"
                 v-model="enterprise.educationCut"
@@ -116,6 +125,7 @@
             </v-col>
             <v-col cols="4">
               <v-select
+                v-if="enterprise"
                 :items="foreignLanguageProficiencyItems"
                 label="Foreign Language Proficiency"
                 v-model="enterprise.foreignLanguageProficiency"
@@ -126,6 +136,7 @@
             </v-col>
             <v-col cols="4">
               <v-select
+                v-if="enterprise"
                 :items="genderItems"
                 label="Gender"
                 v-model="enterprise.genderCut"
@@ -133,10 +144,7 @@
             </v-col>
           </v-row>
           <div class="mt-12 text-right">
-            <v-btn class="ma-2" outlined color="basil" large>
-              <v-icon left @click="submit">mdi-pencil</v-icon>
-              SUBMIT
-            </v-btn>
+            <v-btn color="basil" outlined @click="submit">SUBMIT</v-btn>
           </div>
         </v-sheet>
       </v-col>
@@ -146,14 +154,12 @@
 
 <script>
 import { GET_INDEX_ENTERPRISE } from "@/store/types.js";
+import { UPDATE_INFORMATION_ENTERPRISE } from "@/store/types.js";
+
 import { mapState } from "vuex";
 
 export default {
   data: () => ({
-    schoolRank: null,
-    name: null,
-    nature: null,
-    placeholder: "",
     schoolRankItems: [
       "985",
       "211",
@@ -172,7 +178,28 @@ export default {
     this.$store.dispatch(GET_INDEX_ENTERPRISE);
   },
   methods: {
-    submit() {}
+    submit() {
+      console.log("sdasdas");
+      console.log(this.enterprise.enterprise.name);
+
+      this.$store.dispatch(UPDATE_INFORMATION_ENTERPRISE, {
+        enterprise: {
+          name: this.enterprise.enterprise.name,
+          detail: this.enterprise.enterprise.detail,
+          majorCut: this.enterprise.enterprise.majorCut,
+          lowestSalery: this.enterprise.enterprise.lowestSalery,
+          highestSalery: this.enterprise.enterprise.highestSalery,
+          industry: this.enterprise.enterprise.industry,
+          location: this.enterprise.enterprise.location,
+          phoneNumber: this.enterprise.enterprise.phoneNumber
+        },
+        genderCut: this.enterprise.phoneNumber,
+        schoolRankCut: this.enterprise.schoolRankCut,
+        educationCut: this.enterprise.educationCut,
+        foreignLanguageProficiency: this.enterprise.foreignLanguageProficiency,
+        enterpriseNature: this.enterprise.enterpriseNature
+      });
+    }
   },
   computed: {
     formatDate() {
