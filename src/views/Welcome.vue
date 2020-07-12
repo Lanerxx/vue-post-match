@@ -11,7 +11,7 @@
     <v-row align="stretch" justify="space-around" top="120">
       <v-col cols="3">
         <eIndex id="eIndex" v-if="isEnterprise" />
-        <sSidebar id="sSidebar" v-if="isStudent" />
+        <sIndex id="sIndex" v-if="isStudent" />
       </v-col>
       <v-col cols="9">
         <router-view id="router" :key="$route.path"></router-view>
@@ -29,7 +29,7 @@ import { mapState } from "vuex";
 
 export default {
   components: {
-    sSidebar: () => import("@/views/student/SSidebar.vue"),
+    sIndex: () => import("@/views/student/SIndex.vue"),
     eIndex: () => import("@/views/enterprise/EIndex.vue"),
     MyHeader,
     MyFooter

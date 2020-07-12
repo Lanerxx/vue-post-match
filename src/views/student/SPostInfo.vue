@@ -2,7 +2,7 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="myPosts"
+      :items="posts"
       sort-by="endTime"
       class="elevation-1"
       :search="search"
@@ -74,8 +74,10 @@
                   </v-row>
                   <v-row>
                     <v-col cols="12" sm="12" md="12">
-                      开始日期：{{ formatDate(editedItem.startTime) }} ---
-                      结束日期：{{ formatDate(editedItem.endTime) }}
+                      <v-text>
+                        开始日期：{{ formatDate(editedItem.startTime) }} ---
+                        结束日期：{{ formatDate(editedItem.endTime) }}
+                      </v-text>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -121,13 +123,7 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-icon small class="mr-2" @click="editItem(item)">
-          mdi-pencil
-        </v-icon>
-        <v-icon small @click="deleteItem(item)">
-          mdi-delete
-        </v-icon>
-        <v-btn class="ma-2" outlined color="teal">
+        <v-btn class="ma-2" outlined color="teal" @click="deleteItem(item)">
           匹配
         </v-btn>
       </template>
@@ -135,16 +131,13 @@
     <br />
 
     <p class="font-weight-thin text-end">
-      ps :请完善你的企业信息和岗位信息后再进行匹配～
+      ps :请完善你的企业信息和岗位信息后再进行匹配～{{posts
     </p>
   </div>
 </template>
 
 <script>
-import { GET_INDEX_ENTERPRISE } from "@/store/types.js";
-import { UPDATE_POST_ENTERPRISE } from "@/store/types.js";
-import { ADD_POST_ENTERPRISE } from "@/store/types.js";
-import { DELETE_POST_ENTERPRISE } from "@/store/types.js";
+import { GET_INDEX_STUDENT } from "@/store/types.js";
 import { mapState } from "vuex";
 export default {
   data: () => ({
@@ -162,31 +155,7 @@ export default {
       { text: "结束时间", value: "endTime" },
       { text: "操作", value: "actions", sortable: false }
     ],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      detail: "",
-      count: 0,
-      salary: 0,
-      startTime: "",
-      start1: "",
-      start2: "",
-      endTime: "",
-      end1: "",
-      end2: ""
-    },
-    defaultItem: {
-      name: "",
-      detail: "",
-      count: 1,
-      salary: 0,
-      startTime: "",
-      start1: "",
-      start2: "",
-      endTime: "",
-      end1: "",
-      end2: ""
-    }
+    editedIndex: -1
   }),
 
   computed: {
@@ -196,7 +165,7 @@ export default {
     formatDate() {
       return date => date.replace("T", " ").substring(0, 16);
     },
-    ...mapState(["myPosts"])
+    ...mapState(["posts"])
   },
   watch: {
     dialog(val) {
@@ -205,25 +174,13 @@ export default {
   },
 
   created() {
-    this.$store.dispatch(GET_INDEX_ENTERPRISE);
+    this.$store.dispatch(GET_INDEX_STUDENT);
   },
 
   methods: {
     reset() {
-      this.$store.dispatch(GET_INDEX_ENTERPRISE);
-    },
-    editItem(item) {
-      this.editedIndex = this.myPosts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      const index = this.myPosts.indexOf(item);
-      confirm("你确定删除这个岗位吗？") && this.myPosts.splice(index, 1);
-      this.$store.dispatch(DELETE_POST_ENTERPRISE, {
-        id: item.id
-      });
+      this.$store.dispatch(GET_INDEX_STUDENT);
+      console.log(this.posts);
     },
 
     close() {
@@ -232,49 +189,6 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
-    },
-
-    save() {
-      var flag = true;
-      // if (
-      //   isNaN(this.editedItem.weight) ||
-      //   this.editedItem.weight > 1 ||
-      //   this.editedItem.weight < 0 ||
-      //   isNaN(this.editedItem.lowestMark) ||
-      //   this.editedItem.lowestMark > 100 ||
-      //   this.editedItem.lowestMark < 0
-      // ) {
-      //   flag = false;
-      // }
-      if (this.editedIndex > -1) {
-        this.$store.dispatch(UPDATE_POST_ENTERPRISE, {
-          id: this.myPosts[this.editedIndex].id,
-          post: {
-            name: this.editedItem.name,
-            detail: this.editedItem.detail,
-            count: this.editedItem.count,
-            salary: this.editedItem.salary
-          },
-          startTime:
-            this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
-          endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
-        });
-        if (flag) this.myPosts[this.editedIndex] = this.editedItem;
-      } else {
-        this.$store.dispatch(ADD_POST_ENTERPRISE, {
-          post: {
-            name: this.editedItem.name,
-            detail: this.editedItem.detail,
-            count: this.editedItem.count,
-            salary: this.editedItem.salary
-          },
-          startTime:
-            this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
-          endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
-        });
-        if (flag) this.myPosts.push(this.editedItem);
-      }
-      this.close();
     }
   }
 };

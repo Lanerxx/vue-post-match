@@ -19,7 +19,6 @@ const myState = {
   students: [],
   myPosts: [],
   posts: [],
-  studentsDe: [],
   qualified: null,
   rankingIndex: null
 };
@@ -28,6 +27,12 @@ const myMutations = {
   [types.GET_EXCEPTION](state, data) {
     state.exception = data;
   },
+  [types.GET_STUDENT](state, data) {
+    state.student = data;
+  },
+  [types.GET_POSTS_STUDENT](state, data) {
+    state.posts = data;
+  },
   [types.LOGIN](state, data) {
     state.isLogin = data;
   },
@@ -35,7 +40,7 @@ const myMutations = {
     state.user = data;
   },
   [types.LIST_POSTS_ENTERPRISE](state, data) {
-    state.posts = data;
+    state.myPosts = data;
   },
   [types.GET_ENTERPRISE](state, date) {
     state.enterprise = date;
@@ -97,6 +102,11 @@ const myActions = {
 
   // ------以下为向springboot发出请求
   // 需要取消mock，配置后端跨域
+  async [types.GET_INDEX_STUDENT]({ commit }) {
+    let resp = await axios.get("student/index");
+    commit(types.GET_STUDENT, resp.data.student);
+    commit(types.GET_POSTS_STUDENT, resp.data.posts);
+  },
   async [types.GET_INDEX_ENTERPRISE]({ commit }) {
     let resp = await axios.get("enterprise/index");
     commit(types.GET_ENTERPRISE, resp.data.enterprise);

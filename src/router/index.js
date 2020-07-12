@@ -21,17 +21,17 @@ export default router;
 // 后期追加的路由配置
 let adminRoutes = [];
 
-let enterpriseRoutes = [];
+let enterpriseRoutes = [
+  {
+    path: "/enterpriseMatch",
+    component: () => import("@/views/enterprise/EMatch.vue")
+  }
+];
 
 let studentRoutes = [
   {
-    path: "/studentInformation",
-    component: () => import("@/views/student/SInformation.vue")
-  },
-
-  {
-    path: "/studentPost",
-    component: () => import("@/views/student/SPost.vue")
+    path: "/studentMatch",
+    component: () => import("@/views/student/SMatch.vue")
   }
 ];
 

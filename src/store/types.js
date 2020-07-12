@@ -4,6 +4,10 @@ export const REGISTER_ENTERPRISE = "registerEnterprise";
 export const REGISTER_STUDENT = "registerStudent";
 export const UPDATE_USER = "updateUser";
 
+export const GET_STUDENT = "getStudent";
+export const GET_INDEX_STUDENT = "getStudentIndex";
+export const GET_POSTS_STUDENT = "getPostsByStudent";
+
 export const GET_ENTERPRISE = "getEnterprise";
 export const GET_MYPOSTS_ENTERPRISE = "getMySPostsByEnterprise";
 export const GET_INDEX_ENTERPRISE = "getEnterprseIndex";
