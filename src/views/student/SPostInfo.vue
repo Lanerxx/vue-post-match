@@ -16,6 +16,7 @@
           </v-btn>
 
           <v-spacer></v-spacer>
+
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -23,23 +24,13 @@
             single-line
             hide-details
           ></v-text-field>
-
+          <v-btn class="ma-2" outlined fab color="teal">
+            匹配
+          </v-btn>
           <v-dialog v-model="dialog" max-width="500px">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="rgba(0, 128, 128, 0.712)"
-                dark
-                class="mb-2"
-                v-bind="attrs"
-                v-on="on"
-              >
-                添加岗位
-              </v-btn>
-            </template>
-
             <v-card>
               <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
+                <span class="headline">岗位详情</span>
               </v-card-title>
 
               <v-card-text>
@@ -47,18 +38,21 @@
                   <v-row>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
+                        readonly=""
                         v-model="editedItem.name"
                         label="岗位名"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
+                        readonly=""
                         v-model="editedItem.count"
                         label="招收人数"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
+                        readonly=""
                         v-model="editedItem.salary"
                         label="薪水"
                       ></v-text-field>
@@ -67,46 +61,25 @@
                   <v-row>
                     <v-col cols="12" sm="12" md="12">
                       <v-text-field
+                        readonly=""
                         v-model="editedItem.detail"
                         label="详情"
                       ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row>
-                    <v-col cols="12" sm="12" md="12">
-                      <v-text>
-                        开始日期：{{ formatDate(editedItem.startTime) }} ---
-                        结束日期：{{ formatDate(editedItem.endTime) }}
-                      </v-text>
-                    </v-col>
-                  </v-row>
-                  <v-row>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.start1"
+                        readonly=""
+                        v-model="editedItem.startTime"
                         label="开始日期"
-                        type="date"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.start2"
-                        type="time"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.end1"
+                        readonly=""
+                        v-model="editedItem.endTime"
                         label="结束日期"
-                        type="date"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.end2"
-                        type="time"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -116,22 +89,21 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="save">Save</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn class="ma-2" outlined color="teal" @click="deleteItem(item)">
-          匹配
+        <v-btn class="ma-2" outlined color="teal" @click="editItem(item)">
+          详情
         </v-btn>
       </template>
     </v-data-table>
     <br />
 
     <p class="font-weight-thin text-end">
-      ps :请完善你的企业信息和岗位信息后再进行匹配～{{posts
+      ps :请完善你的企业信息和岗位信息后再进行匹配～
     </p>
   </div>
 </template>
@@ -155,13 +127,22 @@ export default {
       { text: "结束时间", value: "endTime" },
       { text: "操作", value: "actions", sortable: false }
     ],
-    editedIndex: -1
+    editedIndex: -1,
+    editedItem: {
+      name: "",
+      detail: "",
+      count: 0,
+      salary: 0,
+      startTime: "",
+      start1: "",
+      start2: "",
+      endTime: "",
+      end1: "",
+      end2: ""
+    }
   }),
 
   computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
-    },
     formatDate() {
       return date => date.replace("T", " ").substring(0, 16);
     },
@@ -180,7 +161,11 @@ export default {
   methods: {
     reset() {
       this.$store.dispatch(GET_INDEX_STUDENT);
-      console.log(this.posts);
+    },
+    editItem(item) {
+      this.editedIndex = this.posts.indexOf(item);
+      this.editedItem = Object.assign({}, item);
+      this.dialog = true;
     },
 
     close() {
@@ -189,6 +174,10 @@ export default {
         this.editedItem = Object.assign({}, this.defaultItem);
         this.editedIndex = -1;
       });
+    },
+
+    save() {
+      this.close();
     }
   }
 };
