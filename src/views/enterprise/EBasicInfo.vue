@@ -194,7 +194,7 @@ export default {
             location: this.enterprise.enterprise.location,
             phoneNumber: this.enterprise.enterprise.phoneNumber
           },
-          genderCut: this.enterprise.phoneNumber,
+          genderCut: this.enterprise.genderCut,
           schoolRankCut: this.enterprise.schoolRankCut,
           educationCut: this.enterprise.educationCut,
           foreignLanguageProficiency: this.enterprise
