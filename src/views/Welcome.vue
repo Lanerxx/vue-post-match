@@ -12,6 +12,7 @@
       <v-col cols="3">
         <eIndex id="eIndex" v-if="isEnterprise" />
         <sIndex id="sIndex" v-if="isStudent" />
+        <aIndex id="aIndex" v-if="isAdmin" />
       </v-col>
       <v-col cols="9">
         <router-view id="router" :key="$route.path"></router-view>
@@ -31,6 +32,7 @@ export default {
   components: {
     sIndex: () => import("@/views/student/SIndex.vue"),
     eIndex: () => import("@/views/enterprise/EIndex.vue"),
+    aIndex: () => import("@/views/admin/AIndex.vue"),
     MyHeader,
     MyFooter
   },

@@ -4,6 +4,16 @@ export const REGISTER_ENTERPRISE = "registerEnterprise";
 export const REGISTER_STUDENT = "registerStudent";
 export const UPDATE_USER = "updateUser";
 
+export const GET_ADMIN = "getAdmin";
+export const GET_INDEX_ADMIN = "getAdminIndex";
+export const GET_STUDENTS_ADMIN = "getStudentByAdmin";
+export const GET_ENTERPRISES_ADMIN = "getEnterpriseByAdmin";
+export const ADD_ENTERPRISE_ADMIN = "addEnterpriseByAdmin";
+export const DELETE_ENTERPRISE_ADMIN = "deleteEnterpriseByAdmin";
+export const ADD_STUDENT_ADMIN = "addStudentByAdmin";
+export const DELETE_STUDENT_ADMIN = "deleteStudentByAdmin";
+export const ADD_STUDENTSINFO_ADMIN = "addStudentsInfoByAdmin";
+
 export const GET_STUDENT = "getStudent";
 export const GET_INDEX_STUDENT = "getStudentIndex";
 export const GET_POSTS_STUDENT = "getPostsByStudent";

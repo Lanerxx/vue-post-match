@@ -8,17 +8,19 @@ Vue.use(Vuex);
 
 const myState = {
   exception: { message: null },
-  user: null,
-  isLogin: false,
-  notLogin: true,
-  enterprise: null,
   isEnterprise: false,
   isStudent: false,
   isAdmin: false,
+  isLogin: false,
+  notLogin: true,
+  user: null,
+  admin: null,
+  enterprise: null,
+  enterprises: [],
   student: null,
   students: [],
-  myPosts: [],
   posts: [],
+  myPosts: [],
   qualified: null,
   rankingIndex: null
 };
@@ -65,6 +67,15 @@ const myMutations = {
   },
   [types.GET_STUDENT](state, data) {
     state.student = data;
+  },
+  [types.GET_ADMIN](state, data) {
+    state.admin = data;
+  },
+  [types.GET_STUDENTS_ADMIN](state, data) {
+    state.students = data;
+  },
+  [types.GET_ENTERPRISES_ADMIN](state, data) {
+    state.enterprises = data;
   }
 };
 
@@ -102,6 +113,38 @@ const myActions = {
 
   // ------以下为向springboot发出请求
   // 需要取消mock，配置后端跨域
+  async [types.GET_INDEX_ADMIN]({ commit }) {
+    let resp = await axios.get("admin/index");
+    commit(types.GET_ADMIN, resp.data.admin);
+  },
+  async [types.GET_STUDENTS_ADMIN]({ commit }) {
+    let resp = await axios.get("admin/students");
+    commit(types.GET_STUDENTS_ADMIN, resp.data.students);
+  },
+  async [types.ADD_STUDENT_ADMIN]({ commit }, data) {
+    let resp = await axios.post("admin/student", data);
+    commit(types.GET_STUDENTS_ADMIN, resp.data.students);
+  },
+  async [types.ADD_STUDENTSINFO_ADMIN]({ commit }, data) {
+    let resp = await axios.post("admin/studentInformation", data);
+    commit(types.GET_STUDENTS_ADMIN, resp.data.students);
+  },
+  async [types.DELETE_STUDENT_ADMIN]({ commit }, data) {
+    let resp = await axios.delete(`admin/student/${data.id}`);
+    commit(types.GET_STUDENTS_ADMIN, resp.data.students);
+  },
+  async [types.GET_ENTERPRISES_ADMIN]({ commit }) {
+    let resp = await axios.get("admin/enterprises");
+    commit(types.GET_ENTERPRISES_ADMIN, resp.data.enterprises);
+  },
+  async [types.ADD_ENTERPRISE_ADMIN]({ commit }, data) {
+    let resp = await axios.post("admin/enterprise", data);
+    commit(types.GET_ENTERPRISES_ADMIN, resp.data.enterprises);
+  },
+  async [types.DELETE_ENTERPRISE_ADMIN]({ commit }, data) {
+    let resp = await axios.delete(`admin/enterprise/${data.id}`);
+    commit(types.GET_ENTERPRISES_ADMIN, resp.data.enterprises);
+  },
   async [types.GET_INDEX_STUDENT]({ commit }) {
     let resp = await axios.get("student/index");
     commit(types.GET_STUDENT, resp.data.student);

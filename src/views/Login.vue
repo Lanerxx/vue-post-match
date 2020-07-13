@@ -67,19 +67,19 @@
                     @blur="$v.phoneNumber.$touch()"
                   ></v-text-field>
                   <v-spacer></v-spacer>
-                  <v-btn
+                  <!-- <v-btn
                     @click.stop="dialogR = true"
                     class="mr-4"
                     @click="registerStudent"
                   >
                     学生注册
-                  </v-btn>
+                  </v-btn> -->
                   <v-btn
                     @click.stop="dialogR = true"
                     class="mr-4"
                     @click="registerEnterprise"
                   >
-                    企业注册
+                    注册
                   </v-btn>
                   <v-dialog v-model="dialogR" max-width="290" v-if="user">
                     <v-card>
