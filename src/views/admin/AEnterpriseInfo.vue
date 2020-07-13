@@ -103,6 +103,7 @@ export default {
         sortable: false,
         value: "name"
       },
+      { text: "企业号", value: "user.number" },
       { text: "联系电话", value: "phoneNumber" },
       { text: "操作", value: "actions", sortable: false }
     ],

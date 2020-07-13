@@ -171,10 +171,10 @@ export default {
       salary: 0,
       startTime: "",
       start1: "",
-      start2: "",
+      start2: "12:00",
       endTime: "",
       end1: "",
-      end2: ""
+      end2: "12:00"
     },
     defaultItem: {
       name: "",
@@ -183,10 +183,10 @@ export default {
       salary: 0,
       startTime: "",
       start1: "",
-      start2: "",
+      start2: "12:00",
       endTime: "",
       end1: "",
-      end2: ""
+      end2: "12:00"
     }
   }),
 
