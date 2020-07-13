@@ -155,7 +155,7 @@
 <script>
 import { GET_INDEX_ENTERPRISE } from "@/store/types.js";
 import { UPDATE_INFORMATION_ENTERPRISE } from "@/store/types.js";
-
+import { GET_EXCEPTION } from "@/store/types.js";
 import { mapState } from "vuex";
 
 export default {
@@ -182,23 +182,26 @@ export default {
       console.log("sdasdas");
       console.log(this.enterprise.enterprise.name);
 
-      this.$store.dispatch(UPDATE_INFORMATION_ENTERPRISE, {
-        enterprise: {
-          name: this.enterprise.enterprise.name,
-          detail: this.enterprise.enterprise.detail,
-          majorCut: this.enterprise.enterprise.majorCut,
-          lowestSalery: this.enterprise.enterprise.lowestSalery,
-          highestSalery: this.enterprise.enterprise.highestSalery,
-          industry: this.enterprise.enterprise.industry,
-          location: this.enterprise.enterprise.location,
-          phoneNumber: this.enterprise.enterprise.phoneNumber
-        },
-        genderCut: this.enterprise.phoneNumber,
-        schoolRankCut: this.enterprise.schoolRankCut,
-        educationCut: this.enterprise.educationCut,
-        foreignLanguageProficiency: this.enterprise.foreignLanguageProficiency,
-        enterpriseNature: this.enterprise.enterpriseNature
-      });
+      this.$store
+        .dispatch(UPDATE_INFORMATION_ENTERPRISE, {
+          enterprise: {
+            name: this.enterprise.enterprise.name,
+            detail: this.enterprise.enterprise.detail,
+            majorCut: this.enterprise.enterprise.majorCut,
+            lowestSalery: this.enterprise.enterprise.lowestSalery,
+            highestSalery: this.enterprise.enterprise.highestSalery,
+            industry: this.enterprise.enterprise.industry,
+            location: this.enterprise.enterprise.location,
+            phoneNumber: this.enterprise.enterprise.phoneNumber
+          },
+          genderCut: this.enterprise.phoneNumber,
+          schoolRankCut: this.enterprise.schoolRankCut,
+          educationCut: this.enterprise.educationCut,
+          foreignLanguageProficiency: this.enterprise
+            .foreignLanguageProficiency,
+          enterpriseNature: this.enterprise.enterpriseNature
+        })
+        .then(this.$store.commit(GET_EXCEPTION, { message: "修改成功" }));
     }
   },
   computed: {

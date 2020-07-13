@@ -164,6 +164,8 @@ import { ADD_STUDENTSINFO_ADMIN } from "@/store/types.js";
 import { GET_STUDENTS_ADMIN } from "@/store/types.js";
 import { ADD_STUDENT_ADMIN } from "@/store/types.js";
 import { DELETE_STUDENT_ADMIN } from "@/store/types.js";
+import { GET_EXCEPTION } from "@/store/types.js";
+
 import { mapState } from "vuex";
 export default {
   data: () => ({
@@ -214,7 +216,9 @@ export default {
 
   methods: {
     reset() {
-      this.$store.dispatch(GET_STUDENTS_ADMIN);
+      this.$store
+        .dispatch(GET_STUDENTS_ADMIN)
+        .then(this.$store.commit(GET_EXCEPTION, { message: "更新成功" }));
     },
     editItem(item) {
       this.editedIndex = this.students.indexOf(item);
@@ -224,10 +228,12 @@ export default {
 
     deleteItem(item) {
       const index = this.students.indexOf(item);
-      confirm("你确定删除这个企业吗？") && this.students.splice(index, 1);
-      this.$store.dispatch(DELETE_STUDENT_ADMIN, {
-        id: item.id
-      });
+      confirm("你确定删除这个学生吗？") && this.students.splice(index, 1);
+      this.$store
+        .dispatch(DELETE_STUDENT_ADMIN, {
+          id: item.id
+        })
+        .then(this.$store.commit(GET_EXCEPTION, { message: "删除成功" }));
     },
 
     close() {
@@ -324,8 +330,9 @@ export default {
         stu.education = this.studentsInfo[j].education;
         stus.push(stu);
       }
-
-      this.$store.dispatch(ADD_STUDENTSINFO_ADMIN, stus);
+      this.$store
+        .dispatch(ADD_STUDENTSINFO_ADMIN, stus)
+        .then(this.$store.commit(GET_EXCEPTION, { message: "提交成功" }));
     }
   }
 };

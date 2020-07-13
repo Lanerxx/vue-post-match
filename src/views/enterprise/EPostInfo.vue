@@ -144,6 +144,7 @@
 import { GET_INDEX_ENTERPRISE } from "@/store/types.js";
 import { UPDATE_POST_ENTERPRISE } from "@/store/types.js";
 import { ADD_POST_ENTERPRISE } from "@/store/types.js";
+import { GET_EXCEPTION } from "@/store/types.js";
 import { DELETE_POST_ENTERPRISE } from "@/store/types.js";
 import { mapState } from "vuex";
 export default {
@@ -196,6 +197,7 @@ export default {
     formatDate() {
       return date => date.replace("T", " ").substring(0, 16);
     },
+
     ...mapState(["myPosts"])
   },
   watch: {
@@ -210,20 +212,30 @@ export default {
 
   methods: {
     reset() {
-      this.$store.dispatch(GET_INDEX_ENTERPRISE);
+      this.$store
+        .dispatch(GET_INDEX_ENTERPRISE)
+        .then(this.$store.commit(GET_EXCEPTION, { message: "更新成功" }));
     },
     editItem(item) {
       this.editedIndex = this.myPosts.indexOf(item);
       this.editedItem = Object.assign({}, item);
+      this.editedItem.start1 = this.editedItem.startTime.substring(0, 10);
+      this.editedItem.start2 = this.editedItem.startTime.substring(11, 16);
+
+      this.editedItem.end1 = this.editedItem.endTime.substring(0, 10);
+      this.editedItem.end2 = this.editedItem.endTime.substring(11, 16);
+
       this.dialog = true;
     },
 
     deleteItem(item) {
       const index = this.myPosts.indexOf(item);
       confirm("你确定删除这个岗位吗？") && this.myPosts.splice(index, 1);
-      this.$store.dispatch(DELETE_POST_ENTERPRISE, {
-        id: item.id
-      });
+      this.$store
+        .dispatch(DELETE_POST_ENTERPRISE, {
+          id: item.id
+        })
+        .then(this.$store.commit(GET_EXCEPTION, { message: "删除成功" }));
     },
 
     close() {
@@ -247,31 +259,35 @@ export default {
       //   flag = false;
       // }
       if (this.editedIndex > -1) {
-        this.$store.dispatch(UPDATE_POST_ENTERPRISE, {
-          id: this.myPosts[this.editedIndex].id,
-          post: {
-            name: this.editedItem.name,
-            detail: this.editedItem.detail,
-            count: this.editedItem.count,
-            salary: this.editedItem.salary
-          },
-          startTime:
-            this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
-          endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
-        });
+        this.$store
+          .dispatch(UPDATE_POST_ENTERPRISE, {
+            id: this.myPosts[this.editedIndex].id,
+            post: {
+              name: this.editedItem.name,
+              detail: this.editedItem.detail,
+              count: this.editedItem.count,
+              salary: this.editedItem.salary
+            },
+            startTime:
+              this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
+            endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
+          })
+          .then(this.$store.commit(GET_EXCEPTION, { message: "修改成功" }));
         if (flag) this.myPosts[this.editedIndex] = this.editedItem;
       } else {
-        this.$store.dispatch(ADD_POST_ENTERPRISE, {
-          post: {
-            name: this.editedItem.name,
-            detail: this.editedItem.detail,
-            count: this.editedItem.count,
-            salary: this.editedItem.salary
-          },
-          startTime:
-            this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
-          endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
-        });
+        this.$store
+          .dispatch(ADD_POST_ENTERPRISE, {
+            post: {
+              name: this.editedItem.name,
+              detail: this.editedItem.detail,
+              count: this.editedItem.count,
+              salary: this.editedItem.salary
+            },
+            startTime:
+              this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
+            endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
+          })
+          .then(this.$store.commit(GET_EXCEPTION, { message: "添加成功" }));
         if (flag) this.myPosts.push(this.editedItem);
       }
       this.close();
