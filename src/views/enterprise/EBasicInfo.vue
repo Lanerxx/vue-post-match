@@ -1,177 +1,184 @@
 <template>
-  <v-container fluid>
-    <v-row>
-      <v-col cols="12">
-        <v-sheet elevation="2" class="pa-12">
-          <v-row>
-            <v-col cols="1">
-              <v-subheader>企业名</v-subheader>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                label="Name"
-                v-model="enterprise.enterprise.name"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="1">
-              <v-subheader>性质</v-subheader>
-            </v-col>
-            <v-col cols="3">
-              <v-select
-                v-if="enterprise"
-                :items="natureItems"
-                label="Nature"
-                v-model="enterprise.enterpriseNature"
-              ></v-select>
-            </v-col>
-            <v-col cols="1">
-              <v-subheader>行业</v-subheader>
-            </v-col>
-            <v-col cols="3">
-              <v-text-field
-                v-if="enterprise"
-                label="Industry"
-                v-model="enterprise.enterprise.industry"
-              ></v-text-field>
-            </v-col>
-          </v-row>
+  <div>
+    <v-toolbar flat color="white" elevation="1" class="toolbar">
+      <v-toolbar-title>
+        ——————————————————————————— 企业信息 ———————————————————————————
+      </v-toolbar-title>
+    </v-toolbar>
+    <v-container fluid>
+      <v-row>
+        <v-col cols="12">
+          <v-sheet elevation="1" class="pa-12">
+            <v-row>
+              <v-col cols="1">
+                <v-subheader>企业名</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-text-field
+                  label="Name"
+                  v-model="enterprise.enterprise.name"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="1">
+                <v-subheader>性质</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-select
+                  v-if="enterprise"
+                  :items="natureItems"
+                  label="Nature"
+                  v-model="enterprise.enterpriseNature"
+                ></v-select>
+              </v-col>
+              <v-col cols="1">
+                <v-subheader>行业</v-subheader>
+              </v-col>
+              <v-col cols="3">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Industry"
+                  v-model="enterprise.enterprise.industry"
+                ></v-text-field>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="2">
-              <v-subheader>企业详情</v-subheader>
-            </v-col>
-            <v-col cols="10">
-              <v-text-field
-                v-if="enterprise"
-                label="Detail"
-                v-model="enterprise.enterprise.detail"
-              ></v-text-field>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col cols="2">
+                <v-subheader>企业详情</v-subheader>
+              </v-col>
+              <v-col cols="10">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Detail"
+                  v-model="enterprise.enterprise.detail"
+                ></v-text-field>
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="2">
-              <v-subheader>企业所在地</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field
-                v-if="enterprise"
-                label="Location"
-                v-model="enterprise.enterprise.location"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="2">
-              <v-subheader>联系电话</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field
-                v-if="enterprise"
-                label="PhoneNumber"
-                v-model="enterprise.enterprise.phoneNumber"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="2">
-              <v-subheader>最高薪资</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field
-                v-if="enterprise"
-                label="Highest Salery"
-                v-model="enterprise.enterprise.highestSalery"
-              ></v-text-field>
-            </v-col>
-            <v-col cols="2">
-              <v-subheader>最低薪资</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field
-                v-if="enterprise"
-                label="Lowest Salery"
-                v-model="enterprise.enterprise.lowestSalery"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="2" class="d-flex">
-              <v-subheader>学校等级要求</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-select
-                :items="schoolRankItems"
-                v-if="enterprise"
-                label="School Rank"
-                v-model="enterprise.schoolRankCut"
-              ></v-select>
-            </v-col>
-            <v-col cols="2" class="d-flex">
-              <v-subheader>文凭要求</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-select
-                v-if="enterprise"
-                :items="educationItems"
-                label="Education"
-                v-model="enterprise.educationCut"
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="2" class="d-flex">
-              <v-subheader>外语水平要求</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-select
-                v-if="enterprise"
-                :items="foreignLanguageProficiencyItems"
-                label="Foreign Language Proficiency"
-                v-model="enterprise.foreignLanguageProficiency"
-              ></v-select>
-            </v-col>
-            <v-col cols="2" class="d-flex">
-              <v-subheader>性别要求</v-subheader>
-            </v-col>
-            <v-col cols="4">
-              <v-select
-                v-if="enterprise"
-                :items="genderItems"
-                label="Gender"
-                v-model="enterprise.genderCut"
-              ></v-select>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="2">
-              <v-subheader>专业要求</v-subheader>
-            </v-col>
-            <v-col cols="10">
-              <v-text-field
-                v-if="enterprise"
-                label="Detail"
-                v-model="enterprise.enterprise.majorCut"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="2">
-              <v-subheader>其他要求</v-subheader>
-            </v-col>
-            <v-col cols="10">
-              <v-text-field
-                v-if="enterprise"
-                label="Detail"
-                v-model="enterprise.enterprise.otherRequirements"
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <div class="mt-12 text-right">
-            <v-btn color="basil" outlined @click="submit">SUBMIT</v-btn>
-          </div>
-        </v-sheet>
-      </v-col>
-    </v-row>
-  </v-container>
+            <v-row>
+              <v-col cols="2">
+                <v-subheader>企业所在地</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Location"
+                  v-model="enterprise.enterprise.location"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="2">
+                <v-subheader>联系电话</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-if="enterprise"
+                  label="PhoneNumber"
+                  v-model="enterprise.enterprise.phoneNumber"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2">
+                <v-subheader>最高薪资</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Highest Salery"
+                  v-model="enterprise.enterprise.highestSalery"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="2">
+                <v-subheader>最低薪资</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Lowest Salery"
+                  v-model="enterprise.enterprise.lowestSalery"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2" class="d-flex">
+                <v-subheader>学校等级要求</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-select
+                  :items="schoolRankItems"
+                  v-if="enterprise"
+                  label="School Rank"
+                  v-model="enterprise.schoolRankCut"
+                ></v-select>
+              </v-col>
+              <v-col cols="2" class="d-flex">
+                <v-subheader>文凭要求</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-select
+                  v-if="enterprise"
+                  :items="educationItems"
+                  label="Education"
+                  v-model="enterprise.educationCut"
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2" class="d-flex">
+                <v-subheader>外语水平要求</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-select
+                  v-if="enterprise"
+                  :items="foreignLanguageProficiencyItems"
+                  label="Foreign Language Proficiency"
+                  v-model="enterprise.foreignLanguageProficiency"
+                ></v-select>
+              </v-col>
+              <v-col cols="2" class="d-flex">
+                <v-subheader>性别要求</v-subheader>
+              </v-col>
+              <v-col cols="4">
+                <v-select
+                  v-if="enterprise"
+                  :items="genderItems"
+                  label="Gender"
+                  v-model="enterprise.genderCut"
+                ></v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2">
+                <v-subheader>专业要求</v-subheader>
+              </v-col>
+              <v-col cols="10">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Detail"
+                  v-model="enterprise.enterprise.majorCut"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="2">
+                <v-subheader>其他要求</v-subheader>
+              </v-col>
+              <v-col cols="10">
+                <v-text-field
+                  v-if="enterprise"
+                  label="Detail"
+                  v-model="enterprise.enterprise.otherRequirements"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <div class="mt-12 text-right">
+              <v-btn color="basil" outlined @click="submit">SUBMIT</v-btn>
+            </div>
+          </v-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
@@ -232,3 +239,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.toolbar {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+</style>

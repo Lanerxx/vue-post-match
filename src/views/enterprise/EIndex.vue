@@ -1,62 +1,35 @@
 <template>
-  <v-card min-width="1370px">
-    <v-card-title class="text-center justify-center py-6">
-      <h1 class="font-weight-bold display-1 basil--text">企业信息</h1>
-    </v-card-title>
-    <v-divider class="mx-4" color="rgba(0, 128, 128, 0.712)"></v-divider>
-    <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-      <v-tab>
-        基本信息
-      </v-tab>
-      <v-tab>
-        岗位信息
-      </v-tab>
-      <v-tab>
-        安全信息
-      </v-tab>
-    </v-tabs>
+  <v-container fluid class="grey lighten-5">
+    <v-row align="stretch" justify="space-around" top="120">
+      <v-col cols="3">
+        <v-card class="mx-auto" width="380" min-height="640" outlined>
+          <v-list>
+            <v-list-item to="/enterpriseBasicInfo">
+              <v-list-item-icon>
+                <v-icon>mdi-account-circle</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>基础信息</v-list-item-title>
+            </v-list-item>
 
-    <v-tabs-items v-model="tab">
-      <v-tab-item>
-        <v-card flat>
-          <v-card-text><basucInfo /></v-card-text>
+            <v-list-item to="/enterprisePostInfo">
+              <v-list-item-icon>
+                <v-icon>mdi-home</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>岗位信息</v-list-item-title>
+            </v-list-item>
+
+            <v-list-item to="/enterpriseSafetyInfo">
+              <v-list-item-icon>
+                <v-icon>mdi-water</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>安全信息</v-list-item-title>
+            </v-list-item>
+          </v-list>
         </v-card>
-      </v-tab-item>
-      <v-tab-item>
-        <v-card flat>
-          <v-card-text><postInfo /></v-card-text>
-        </v-card>
-      </v-tab-item>
-      <v-tab-item>
-        <v-card flat>
-          <v-card-text><safetyInfo /></v-card-text>
-        </v-card>
-      </v-tab-item>
-    </v-tabs-items>
-  </v-card>
+      </v-col>
+      <v-col cols="9">
+        <router-view id="router" :key="$route.path"></router-view>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
-
-<script>
-export default {
-  components: {
-    basucInfo: () => import("@/views/enterprise/EBasicInfo.vue"),
-    postInfo: () => import("@/views/enterprise/EPostInfo.vue"),
-    safetyInfo: () => import("@/views/enterprise/ESafetyInfo.vue")
-  },
-  data() {
-    return {
-      tab: null
-    };
-  }
-};
-</script>
-
-<style>
-/* Helper classes */
-.basil {
-  background-color: #fffbe6 !important;
-}
-.basil--text {
-  color: #356859 !important;
-}
-</style>

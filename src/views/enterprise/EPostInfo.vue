@@ -127,7 +127,12 @@
         <v-icon small @click="deleteItem(item)">
           mdi-delete
         </v-icon>
-        <v-btn class="ma-2" outlined color="teal" @click="matchItem(item)">
+        <v-btn
+          class="ma-2"
+          outlined
+          color="teal"
+          :to="`/enterpriseMatch/${item.id}`"
+        >
           匹配
         </v-btn>
       </template>
@@ -146,7 +151,6 @@ import { UPDATE_POST_ENTERPRISE } from "@/store/types.js";
 import { ADD_POST_ENTERPRISE } from "@/store/types.js";
 import { GET_EXCEPTION } from "@/store/types.js";
 import { DELETE_POST_ENTERPRISE } from "@/store/types.js";
-import { MATCH_POST_ENTERPRISE } from "@/store/types.js";
 
 import { mapState } from "vuex";
 export default {
@@ -238,12 +242,6 @@ export default {
           id: item.id
         })
         .then(this.$store.commit(GET_EXCEPTION, { message: "删除成功" }));
-    },
-    matchItem(item) {
-      console.log(item.id);
-      this.$store.dispatch(MATCH_POST_ENTERPRISE, {
-        id: item.id
-      });
     },
 
     close() {

@@ -5,18 +5,10 @@
         <MyHeader id="MyHeader" />
       </v-col>
     </v-row>
-    <v-spacer>
-      <br />
-    </v-spacer>
     <v-row align="stretch" justify="space-around" top="120">
-      <v-col cols="3">
-        <eIndex id="eIndex" v-if="isEnterprise" />
-        <sIndex id="sIndex" v-if="isStudent" />
-        <aIndex id="aIndex" v-if="isAdmin" />
-      </v-col>
-      <v-col cols="9">
-        <router-view id="router" :key="$route.path"></router-view>
-      </v-col>
+      <eIndex id="eIndex" v-if="isEnterprise" />
+      <sIndex id="sIndex" v-if="isStudent" />
+      <aIndex id="aIndex" v-if="isAdmin" />
     </v-row>
     <v-row>
       <MyFooter id="MyFooter" />

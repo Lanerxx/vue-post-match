@@ -23,7 +23,19 @@ let adminRoutes = [];
 
 let enterpriseRoutes = [
   {
-    path: "/enterpriseMatch",
+    path: "/enterpriseBasicInfo",
+    component: () => import("@/views/enterprise/EBasicInfo")
+  },
+  {
+    path: "/enterprisePostInfo",
+    component: () => import("@/views/enterprise/EPostInfo.vue")
+  },
+  {
+    path: "/enterpriseSafetyInfo",
+    component: () => import("@/views/enterprise/ESafetyInfo.vue")
+  },
+  {
+    path: "/enterpriseMatch/:pid",
     component: () => import("@/views/enterprise/EMatch.vue")
   }
 ];
