@@ -28,14 +28,15 @@ export function readStudentFile(file) {
           st.nativePlace = r.__EMPTY_8;
           st.foreignlanguageproficiency = r.__EMPTY_9;
           st.expectedSalary = r.__EMPTY_10;
-          st.expectedPosition = r.__EMPTY_11;
-          st.expectedIndustry = r.__EMPTY_12;
+          st.expectedIndustry = r.__EMPTY_11;
+          st.expectedPosition = r.__EMPTY_12;
           st.employmentIntentionPlace = r.__EMPTY_13;
           st.phoneNumber = r.__EMPTY_14;
           st.majorCourse = r.__EMPTY_15;
           st.skill = r.__EMPTY_16;
           st.paperCount = r.__EMPTY_17;
           st.workExperience = r.__EMPTY_18;
+          st.personalStatement = r.__EMPTY_19;
           studentsInfo.push(st);
         }
       });
@@ -69,4 +70,5 @@ class Student {
   skill;
   paperCount;
   workExperience;
+  personalStatement;
 }

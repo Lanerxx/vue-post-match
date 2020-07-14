@@ -49,8 +49,6 @@
             </v-col>
           </v-row>
 
-          <v-row></v-row>
-
           <v-row>
             <v-col cols="2">
               <v-subheader>企业所在地</v-subheader>
@@ -143,6 +141,30 @@
               ></v-select>
             </v-col>
           </v-row>
+          <v-row>
+            <v-col cols="2">
+              <v-subheader>专业要求</v-subheader>
+            </v-col>
+            <v-col cols="10">
+              <v-text-field
+                v-if="enterprise"
+                label="Detail"
+                v-model="enterprise.enterprise.majorCut"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="2">
+              <v-subheader>其他要求</v-subheader>
+            </v-col>
+            <v-col cols="10">
+              <v-text-field
+                v-if="enterprise"
+                label="Detail"
+                v-model="enterprise.enterprise.otherRequirements"
+              ></v-text-field>
+            </v-col>
+          </v-row>
           <div class="mt-12 text-right">
             <v-btn color="basil" outlined @click="submit">SUBMIT</v-btn>
           </div>
@@ -179,9 +201,6 @@ export default {
   },
   methods: {
     submit() {
-      console.log("sdasdas");
-      console.log(this.enterprise.enterprise.name);
-
       this.$store
         .dispatch(UPDATE_INFORMATION_ENTERPRISE, {
           enterprise: {
@@ -192,7 +211,8 @@ export default {
             highestSalery: this.enterprise.enterprise.highestSalery,
             industry: this.enterprise.enterprise.industry,
             location: this.enterprise.enterprise.location,
-            phoneNumber: this.enterprise.enterprise.phoneNumber
+            phoneNumber: this.enterprise.enterprise.phoneNumber,
+            otherRequirements: this.enterprise.enterprise.otherRequirements
           },
           genderCut: this.enterprise.genderCut,
           schoolRankCut: this.enterprise.schoolRankCut,

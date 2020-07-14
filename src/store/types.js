@@ -18,6 +18,7 @@ export const GET_STUDENT = "getStudent";
 export const GET_INDEX_STUDENT = "getStudentIndex";
 export const GET_POSTS_STUDENT = "getPostsByStudent";
 
+export const MATCH_POST_ENTERPRISE = "matchPostByEnterprise";
 export const GET_ENTERPRISE = "getEnterprise";
 export const GET_MYPOSTS_ENTERPRISE = "getMySPostsByEnterprise";
 export const GET_INDEX_ENTERPRISE = "getEnterprseIndex";

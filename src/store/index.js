@@ -19,6 +19,7 @@ const myState = {
   enterprises: [],
   student: null,
   students: [],
+  matchStudent: [],
   posts: [],
   myPosts: [],
   qualified: null,
@@ -76,6 +77,9 @@ const myMutations = {
   },
   [types.GET_ENTERPRISES_ADMIN](state, data) {
     state.enterprises = data;
+  },
+  [types.MATCH_POST_ENTERPRISE](state, data) {
+    state.matchStudent = data;
   }
 };
 
@@ -177,6 +181,11 @@ const myActions = {
   async [types.DELETE_POST_ENTERPRISE]({ commit }, data) {
     let resp = await axios.delete(`enterprise/post/${data.id}`);
     commit(types.LIST_POSTS_ENTERPRISE, resp.data.posts);
+  },
+  async [types.MATCH_POST_ENTERPRISE]({ commit }, data) {
+    console.log(data.id);
+    let resp = await axios.get(`enterprise/match/post/${data.id}`);
+    commit(types.MATCH_POST_ENTERPRISE, resp.data.students);
   }
 };
 

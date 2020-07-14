@@ -295,7 +295,8 @@ export default {
             majorCourse: null,
             skill: null,
             paperCount: 0,
-            workExperience: 0
+            workExperience: 0,
+            personalStatement: null
           },
           gender: null,
           ForeignLanguageProficiency: null,
@@ -321,6 +322,7 @@ export default {
         stu.student.skill = this.studentsInfo[j].skill;
         stu.student.paperCount = this.studentsInfo[j].paperCount;
         stu.student.workExperience = this.studentsInfo[j].workExperience;
+        stu.student.personalStatement = this.studentsInfo[j].personalStatement;
 
         stu.gender = this.studentsInfo[j].gender;
         stu.foreignLanguageProficiency = this.studentsInfo[
