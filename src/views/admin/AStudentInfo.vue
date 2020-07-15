@@ -1,15 +1,22 @@
 <template>
   <div>
     <v-card class="d-flex flex-row-reverse">
-      <v-btn
-        class="ma-2"
-        outlined
-        fab
-        color="#5482ba"
-        @click="downloadTemplate"
-      >
-        <v-icon>mdi-format-list-bulleted-square</v-icon>
-      </v-btn>
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            v-on="on"
+            class="ma-2"
+            outlined
+            fab
+            color="#5482ba"
+            @click="downloadTemplate"
+          >
+            <v-icon>mdi-format-list-bulleted-square</v-icon>
+          </v-btn>
+        </template>
+        <span>下载模板</span>
+      </v-tooltip>
       <v-card-actions>
         <form>
           <label class="upload">
@@ -149,9 +156,14 @@
         <!-- <v-icon small class="mr-2" @click="editItem(item)">
           mdi-pencil
         </v-icon> -->
-        <v-icon small @click="deleteItem(item)">
-          mdi-delete
-        </v-icon>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon small @click="deleteItem(item)" v-bind="attrs" v-on="on">
+              mdi-delete
+            </v-icon>
+          </template>
+          <span>删除</span>
+        </v-tooltip>
       </template>
     </v-data-table>
     <br />
@@ -272,7 +284,7 @@ export default {
     },
 
     downloadTemplate() {
-      window.open("./file/TranscriptTemplate.xls");
+      window.open("./file/StudentTemplate.xls");
     },
     submit() {
       var stus = [];

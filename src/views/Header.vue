@@ -23,9 +23,24 @@
     <v-btn class="ma-2" x-large text color="indigo" disabled>
       Post_Match
     </v-btn>
-    <v-btn class="ma-2" @click="logout" outlined fab color="teal">
-      <v-icon>mdi-format-list-bulleted-square</v-icon>
-    </v-btn>
+
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          class="ma-2"
+          outlined
+          fab
+          color="teal"
+          v-bind="attrs"
+          v-on="on"
+          to="/help"
+        >
+          <v-icon>mdi-format-list-bulleted-square</v-icon>
+        </v-btn>
+      </template>
+      <span>帮助</span>
+    </v-tooltip>
+
     <v-btn class="ma-2" outlined fab color="indigo">
       <v-icon>mdi-pencil</v-icon>
     </v-btn>
@@ -33,8 +48,6 @@
 </template>
 <script>
 export default {
-  methods: {
-    logout() {}
-  }
+  methods: {}
 };
 </script>

@@ -38,7 +38,7 @@
                     @blur="$v.password.$touch()"
                   ></v-text-field>
                   <v-spacer></v-spacer>
-                  <v-btn class="mr-4" @click="login">登陆</v-btn>
+                  <v-btn class="mr-4" @click="login" to="/help">登陆</v-btn>
                 </form>
               </v-card-text>
             </v-card>
@@ -122,6 +122,8 @@
 import { LOGIN } from "@/store/types.js";
 import { REGISTER_ENTERPRISE } from "@/store/types.js";
 import { REGISTER_STUDENT } from "@/store/types.js";
+import { GET_EXCEPTION } from "@/store/types.js";
+
 import { mapState } from "vuex";
 
 export default {
@@ -145,18 +147,31 @@ export default {
       }
     },
     registerStudent() {
-      this.$store.dispatch(REGISTER_STUDENT, {
-        name: this.name,
-        phoneNumber: this.phoneNumber
-      });
+      var flag = true;
+      if (this.name == null || this.phoneNumber == null) {
+        flag = false;
+      }
+      if (flag)
+        this.$store.dispatch(REGISTER_STUDENT, {
+          name: this.name,
+          phoneNumber: this.phoneNumber
+        });
     },
     registerEnterprise() {
-      console.log(this.name),
-        console.log(this.phoneNumber),
+      var flag = true;
+      if (this.name == null || this.phoneNumber == null) {
+        flag = false;
+      }
+      if (flag)
         this.$store.dispatch(REGISTER_ENTERPRISE, {
           name: this.name,
           phoneNumber: this.phoneNumber
         });
+      else {
+        this.$store.commit(GET_EXCEPTION, {
+          message: "名字和电话号码都不能为空！"
+        });
+      }
     }
   },
   computed: {

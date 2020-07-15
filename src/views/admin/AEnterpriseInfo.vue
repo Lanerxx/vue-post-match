@@ -74,9 +74,14 @@
         <!-- <v-icon small class="mr-2" @click="editItem(item)">
           mdi-pencil
         </v-icon> -->
-        <v-icon small @click="deleteItem(item)">
-          mdi-delete
-        </v-icon>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon small @click="deleteItem(item)" v-bind="attrs" v-on="on">
+              mdi-delete
+            </v-icon>
+          </template>
+          <span>删除</span>
+        </v-tooltip>
       </template>
     </v-data-table>
     <br />

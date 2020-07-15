@@ -20,7 +20,7 @@
 
             <v-list-item to="/enterpriseSafetyInfo">
               <v-list-item-icon>
-                <v-icon>mdi-water</v-icon>
+                <v-icon>mdi-lock</v-icon>
               </v-list-item-icon>
               <v-list-item-title>安全信息</v-list-item-title>
             </v-list-item>
@@ -33,3 +33,10 @@
     </v-row>
   </v-container>
 </template>
+<script>
+export default {
+  data: () => ({
+    item: 0
+  })
+};
+</script>
