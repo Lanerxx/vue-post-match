@@ -23,7 +23,8 @@ const myState = {
   posts: [],
   myPosts: [],
   qualified: null,
-  rankingIndex: null
+  rankingIndex: null,
+  flag: null
 };
 
 const myMutations = {
@@ -80,6 +81,9 @@ const myMutations = {
   },
   [types.MATCH_POST_ENTERPRISE](state, data) {
     state.matchStudent = data;
+  },
+  [types.DOWNLOAD_RESUME_ENTERPRISE](state, data) {
+    state.flag = data;
   }
 };
 
@@ -186,6 +190,11 @@ const myActions = {
     console.log(data.id);
     let resp = await axios.get(`enterprise/match/post/${data.id}`);
     commit(types.MATCH_POST_ENTERPRISE, resp.data.students);
+  },
+  async [types.DOWNLOAD_RESUME_ENTERPRISE]({ commit }, data) {
+    console.log(data.id);
+    let resp = await axios.get(`enterprise/downloadResume/${data.id}`);
+    commit(types.MATCH_POST_ENTERPRISE, resp.data.flag);
   }
 };
 

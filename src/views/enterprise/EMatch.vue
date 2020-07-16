@@ -215,7 +215,12 @@
         <v-btn class="ma-2" outlined color="teal" @click="editItem(item)">
           详情
         </v-btn>
-        <v-btn class="ma-2" outlined color="indigo">
+        <v-btn
+          class="ma-2"
+          outlined
+          color="indigo"
+          @click="downloadResume(item)"
+        >
           下载
         </v-btn>
       </template>
@@ -230,6 +235,8 @@
 
 <script>
 import { MATCH_POST_ENTERPRISE } from "@/store/types.js";
+import { DOWNLOAD_RESUME_ENTERPRISE } from "@/store/types.js";
+
 import { mapState } from "vuex";
 export default {
   props: ["pid"],
@@ -266,7 +273,7 @@ export default {
     formatDate() {
       return date => date.replace("T", " ").substring(0, 16);
     },
-    ...mapState(["matchStudent"])
+    ...mapState(["matchStudent", "flag"])
   },
   watch: {
     dialog(val) {
@@ -297,6 +304,12 @@ export default {
 
     save() {
       this.close();
+    },
+    downloadResume(item) {
+      console.log(item.student.id);
+      this.$store.dispatch(DOWNLOAD_RESUME_ENTERPRISE, {
+        id: item.student.id
+      });
     }
   }
 };
