@@ -24,7 +24,8 @@ const myState = {
   myPosts: [],
   qualified: null,
   rankingIndex: null,
-  flag: null
+  flag: null,
+  studentP: null
 };
 
 const myMutations = {
@@ -57,7 +58,9 @@ const myMutations = {
   //   state.enterprise = resp.data.enterprise;
   //   state.myPosts = resp.data.posts;
   // },
-
+  [types.UPDATE_USER](state, data) {
+    state.user = data;
+  },
   [types.CERTI_ADMIN](state, data) {
     state.isAdmin = data;
   },
@@ -84,6 +87,9 @@ const myMutations = {
   },
   [types.DOWNLOAD_RESUME_ENTERPRISE](state, data) {
     state.flag = data;
+  },
+  [types.UPDATE_PASSWORD](state, data) {
+    state.studentP = data;
   }
 };
 
@@ -110,6 +116,11 @@ const myActions = {
       commit(types.LOGIN, true);
     }
   },
+  async [types.UPDATE_PASSWORD]({ commit }, data) {
+    console.log(data);
+    let resp = await axios.patch("user/password", data);
+    commit(types.UPDATE_PASSWORD, resp.data);
+  },
   async [types.REGISTER_ENTERPRISE]({ commit }, data) {
     let resp = await axios.post("register/enterprise", data);
     commit(types.REGISTER, resp.data);
@@ -121,6 +132,9 @@ const myActions = {
 
   // ------以下为向springboot发出请求
   // 需要取消mock，配置后端跨域
+  async [types.UPDATE_USER]({ commit }, data) {
+    commit(types.UPDATE_USER, data.user);
+  },
   async [types.GET_INDEX_ADMIN]({ commit }) {
     let resp = await axios.get("admin/index");
     commit(types.GET_ADMIN, resp.data.admin);
@@ -138,6 +152,7 @@ const myActions = {
     commit(types.GET_STUDENTS_ADMIN, resp.data.students);
   },
   async [types.DELETE_STUDENT_ADMIN]({ commit }, data) {
+    console.log(data);
     let resp = await axios.delete(`admin/student/${data.id}`);
     commit(types.GET_STUDENTS_ADMIN, resp.data.students);
   },

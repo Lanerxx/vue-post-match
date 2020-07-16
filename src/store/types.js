@@ -3,6 +3,7 @@ export const REGISTER = "register";
 export const REGISTER_ENTERPRISE = "registerEnterprise";
 export const REGISTER_STUDENT = "registerStudent";
 export const UPDATE_USER = "updateUser";
+export const UPDATE_PASSWORD = "updatePassword";
 
 export const GET_ADMIN = "getAdmin";
 export const GET_INDEX_ADMIN = "getAdminIndex";

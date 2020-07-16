@@ -101,7 +101,7 @@
                         <v-btn
                           color="green darken-1"
                           text
-                          @click="dialogR = false"
+                          @click="registered()"
                         >
                           OK
                         </v-btn>
@@ -123,6 +123,7 @@ import { LOGIN } from "@/store/types.js";
 import { REGISTER_ENTERPRISE } from "@/store/types.js";
 import { REGISTER_STUDENT } from "@/store/types.js";
 import { GET_EXCEPTION } from "@/store/types.js";
+import { UPDATE_USER } from "@/store/types.js";
 
 import { mapState } from "vuex";
 
@@ -172,6 +173,12 @@ export default {
           message: "名字和电话号码都不能为空！"
         });
       }
+    },
+    registered() {
+      this.dialogR = false;
+      this.$store.dispatch(UPDATE_USER, {
+        user: null
+      });
     }
   },
   computed: {

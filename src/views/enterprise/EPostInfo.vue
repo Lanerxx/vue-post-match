@@ -252,7 +252,7 @@ export default {
 
     deleteItem(item) {
       const index = this.myPosts.indexOf(item);
-      confirm("你确定删除这个岗位吗？") && this.myPosts.splice(index, 1);
+      this.myPosts.splice(index, 1);
       this.$store
         .dispatch(DELETE_POST_ENTERPRISE, {
           id: item.id
@@ -269,7 +269,7 @@ export default {
     },
 
     save() {
-      var flag = true;
+      // var flag = true;
       // if (
       //   isNaN(this.editedItem.weight) ||
       //   this.editedItem.weight > 1 ||
@@ -281,36 +281,30 @@ export default {
       //   flag = false;
       // }
       if (this.editedIndex > -1) {
-        this.$store
-          .dispatch(UPDATE_POST_ENTERPRISE, {
-            id: this.myPosts[this.editedIndex].id,
-            post: {
-              name: this.editedItem.name,
-              detail: this.editedItem.detail,
-              count: this.editedItem.count,
-              salary: this.editedItem.salary
-            },
-            startTime:
-              this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
-            endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
-          })
-          .then(this.$store.commit(GET_EXCEPTION, { message: "修改成功" }));
-        if (flag) this.myPosts[this.editedIndex] = this.editedItem;
+        this.$store.dispatch(UPDATE_POST_ENTERPRISE, {
+          id: this.myPosts[this.editedIndex].id,
+          post: {
+            name: this.editedItem.name,
+            detail: this.editedItem.detail,
+            count: this.editedItem.count,
+            salary: this.editedItem.salary
+          },
+          startTime:
+            this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
+          endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
+        });
       } else {
-        this.$store
-          .dispatch(ADD_POST_ENTERPRISE, {
-            post: {
-              name: this.editedItem.name,
-              detail: this.editedItem.detail,
-              count: this.editedItem.count,
-              salary: this.editedItem.salary
-            },
-            startTime:
-              this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
-            endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
-          })
-          .then(this.$store.commit(GET_EXCEPTION, { message: "添加成功" }));
-        if (flag) this.myPosts.push(this.editedItem);
+        this.$store.dispatch(ADD_POST_ENTERPRISE, {
+          post: {
+            name: this.editedItem.name,
+            detail: this.editedItem.detail,
+            count: this.editedItem.count,
+            salary: this.editedItem.salary
+          },
+          startTime:
+            this.editedItem.start1 + " " + this.editedItem.start2 + ":00",
+          endTime: this.editedItem.end1 + " " + this.editedItem.end2 + ":00"
+        });
       }
       this.close();
     }

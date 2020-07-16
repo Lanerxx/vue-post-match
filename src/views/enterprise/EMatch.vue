@@ -230,6 +230,13 @@
     <p class="font-weight-thin text-end">
       ps :请完善你的企业信息和岗位信息后再进行匹配～indexOfname
     </p>
+    <template>
+      <v-progress-linear indeterminate color="green"></v-progress-linear>
+      <br />
+      <v-progress-linear indeterminate color="teal"></v-progress-linear>
+      <br />
+      <v-progress-linear indeterminate color="cyan"></v-progress-linear>
+    </template>
   </div>
 </template>
 

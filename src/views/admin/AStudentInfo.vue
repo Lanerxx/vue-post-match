@@ -240,7 +240,7 @@ export default {
 
     deleteItem(item) {
       const index = this.students.indexOf(item);
-      confirm("你确定删除这个学生吗？") && this.students.splice(index, 1);
+      this.students.splice(index, 1);
       this.$store
         .dispatch(DELETE_STUDENT_ADMIN, {
           id: item.id

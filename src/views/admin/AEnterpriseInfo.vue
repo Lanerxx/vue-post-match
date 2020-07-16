@@ -96,6 +96,8 @@
 import { GET_ENTERPRISES_ADMIN } from "@/store/types.js";
 import { ADD_ENTERPRISE_ADMIN } from "@/store/types.js";
 import { DELETE_ENTERPRISE_ADMIN } from "@/store/types.js";
+import { GET_EXCEPTION } from "@/store/types.js";
+
 import { mapState } from "vuex";
 export default {
   data: () => ({
@@ -154,10 +156,12 @@ export default {
 
     deleteItem(item) {
       const index = this.enterprises.indexOf(item);
-      confirm("你确定删除这个企业吗？") && this.enterprises.splice(index, 1);
-      this.$store.dispatch(DELETE_ENTERPRISE_ADMIN, {
-        id: item.id
-      });
+      this.enterprises.splice(index, 1);
+      this.$store
+        .dispatch(DELETE_ENTERPRISE_ADMIN, {
+          id: item.id
+        })
+        .then(this.$store.commit(GET_EXCEPTION, { message: "删除成功" }));
     },
 
     close() {
